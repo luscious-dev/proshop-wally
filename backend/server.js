@@ -1,25 +1,27 @@
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
-import products from "./data/products.js";
+import connectDB from "./config/db.js";
+import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import cookieParser from "cookie-parser";
+import productRoutes from "./routes/productRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 const PORT = process.env.PORT || 8000;
+
+connectDB(); // Connect to MongoDB
 
 const app = express();
 
-app.get("/api/products", (req, res) => {
-  res.status(200).json(products);
-});
+// Body parser middleware
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/api/products/:id", (req, res) => {
-  const product = products.find((product) => req.params.id === product._id);
-  if (!product) {
-    res.status(404).json({
-      status: "fail",
-      message: "Product not found!",
-    });
-  }
-  res.status(200).json(product);
-});
+app.use("/api/products", productRoutes);
+app.use("/api/users", userRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`APP RUNNING ON PORT ${PORT}`);

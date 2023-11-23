@@ -7,10 +7,10 @@ function Rating(props) {
   for (let i = 1; i <= 5; i++) {
     {
       value >= i
-        ? ratings.push(<FaStar />)
+        ? ratings.push(<FaStar key={i} />)
         : value >= 1 - 0.5
-        ? ratings.push(<FaStarHalfAlt />)
-        : ratings.push(<FaRegStar />);
+        ? ratings.push(<FaStarHalfAlt key={i} />)
+        : ratings.push(<FaRegStar key={i} />);
     }
   }
   return (

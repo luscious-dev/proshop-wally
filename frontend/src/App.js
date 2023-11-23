@@ -2,6 +2,8 @@ import { Container } from "react-bootstrap";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -9,11 +11,11 @@ function App() {
       <Header />
       <main className="py-3">
         <Container>
-          <h1>Welcome to ProShop</h1>
           <Outlet />
         </Container>
       </main>
       <Footer />
+      <ToastContainer />
     </>
   );
 }
