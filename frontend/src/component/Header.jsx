@@ -23,6 +23,7 @@ function Header(props) {
       toast.success("Logged out successfully!");
       navigate("/login");
     } catch (err) {
+      console.log(err);
       toast.error(err?.data?.message || err.data);
     }
   };
